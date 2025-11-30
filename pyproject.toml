@@ -1,0 +1,10 @@
+[project]
+name = "guardiao-digital"
+version = "0.1.0"
+description = "Sistema de auditoria cidadã que monitora e valida notícias com APIs governamentais e ML."
+authors = [
+    { name = "Talyslan C. P. Canabarro", email = "talyslancpc@gmail.com" }
+]
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
