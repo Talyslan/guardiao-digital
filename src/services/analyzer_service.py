@@ -36,12 +36,28 @@ class AnalyzerService:
             except Exception as e:
                 logger.error("Erro ao checar reputação: %s", e)
 
-        # 3) Build status
+        # 3) Collect textual reasons from classifiers (if available)
+        try:
+            text_reasons = self.text_classifier_service.explain(text) if hasattr(self.text_classifier_service, 'explain') else []
+            for r in text_reasons:
+                if r not in reasons:
+                    reasons.append(r)
+        except Exception as e:
+            logger.debug("Falha ao coletar reasons dos classificadores: %s", e)
+
+        # 4) Build status
         status = "safe"
         if score >= 0.7 or (url_report and not url_report.safe):
             status = "high_risk"
         elif score >= 0.4:
             status = "suspicious"
+
+        # If no specific rule-based reasons found, keep the generic score-based reason
+        if score >= 0.4 and not reasons:
+            try:
+                reasons.append(f"Padrões textuais suspeitos (score={score:.2f})")
+            except Exception:
+                pass
 
         result = AnalysisResult(
             status=status,
