@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Analisar Texto / Notícia</h1>
+  <p class="meta">Use esta tela para uma análise genérica de conteúdo — detecta conteúdo malicioso, spam ou linguagem suspeita. Para checar links suspeitos prefira a aba <a href="/phishing">Phishing</a>.</p>
+  <form id="analyze-form" method="post" action="/analyze" class="card form-card">
+    <label for="text">Texto / Notícia</label>
+    <textarea id="text" name="text" rows="8" placeholder="Cole o texto aqui..."></textarea>
+
+    <p class="meta" style="margin-top:8px">Informe o texto ou uma URL. Pelo menos um dos campos é obrigatório.</p>
+
+    <div style="display:flex;gap:12px;margin-top:8px">
+      <div style="flex:1">
+        <label for="url">URL (opcional)</label>
+        <input id="url" name="url" placeholder="https://example.com/artigo" />
+      </div>
+      <div style="width:180px;align-self:end">
+        <label class="visually-hidden">Ações</label>
+        <button type="submit" class="btn primary" style="width:100%">Analisar</button>
+      </div>
+    </div>
+  </form>
+{% endblock %}

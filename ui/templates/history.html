@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Histórico de análises</h1>
+  <div id="history-detail-target"></div>
+  {% if history %}
+    <ul id="history-list" class="history-list" hx-get="/history/list" hx-trigger="load once" hx-swap="innerHTML">
+      <!-- content will be filled by the HTMX fragment -->
+      {% for item in history %}
+        <li class="history-item">
+          <a href="/history/{{ item.id }}">{{ icons.icon('history',14) }} <strong>{{ item.result.status }}</strong> — <span class="muted">Score {{ item.result.score }}</span></a>
+          <div class="meta">{{ (item.text or '')[:120] }}{% if item.url %} — {{ item.url }}{% endif %}</div>
+          {% set reasons = (item.result.reasons if item.result is mapping else (item.result.get('reasons') if item.result else None)) %}
+          {% if reasons %}
+            <div class="muted" style="margin-top:6px">Motivo: {{ reasons[0] if reasons|length > 0 else reasons }}</div>
+          {% endif %}
+          {% set url_report = (item.result.url_report if item.result is mapping else (item.result.get('url_report') if item.result else None)) %}
+          {% if url_report %}
+            <div class="tag" style="display:inline-block;margin-top:6px">Reputação: {{ url_report.get('summary') if url_report.get('summary') else 'ver detalhes' }}</div>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>Nenhuma análise ainda. Faça uma nova análise na <a href="/">página inicial</a>.</p>
+  {% endif %}
+{% endblock %}

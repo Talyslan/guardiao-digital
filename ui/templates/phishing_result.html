@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Resultado - Phishing</h1>
+  <div class="card">
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <div>
+        <h2 style="margin:0">Status: <span class="status {{ analysis.status }}">{{ analysis.status }}</span></h2>
+        <p style="margin:6px 0 0"><strong>Score:</strong> <span class="label-badge">{{ analysis.score }}</span></p>
+      </div>
+      <div>
+        {% if analysis.status == 'high_risk' %}
+          <div class="label-badge"><span style="color:var(--danger)">{{ icons.icon('alert',16) }}</span> Alto risco</div>
+        {% endif %}
+      </div>
+    </div>
+
+    <hr style="border:none;border-top:1px solid rgba(255,255,255,0.03);margin:14px 0">
+
+    <p><strong>Regras / Motivos:</strong></p>
+    <pre class="json">{{ analysis.reasons | tojson(indent=2) }}</pre>
+    {% if analysis.url_report %}
+      <h3>Relatório de URL</h3>
+      <pre class="json">{{ analysis.url_report | tojson(indent=2) }}</pre>
+    {% endif %}
+    <div class="actions">
+      <a class="btn ghost" href="/history">{{ icons.icon('history',14) }} Ver histórico</a>
+    </div>
+  </div>
+{% endblock %}

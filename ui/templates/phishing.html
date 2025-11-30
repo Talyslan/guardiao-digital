@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Análise de Phishing</h1>
+  <p class="meta">Use este formulário para verificar URLs ou e-mails suspeitos. O serviço valida a URL, consulta reputação e retorna razões quando encontrar indícios de phishing.</p>
+  <form id="phishing-form" method="post" class="card form-card">
+    <p class="meta">Pelo menos um dos campos abaixo deve ser preenchido.</p>
+    <label for="text">Texto (opcional)</label>
+    <textarea id="text" name="text" rows="4"></textarea>
+
+    <label for="url">URL (opcional)</label>
+    <input id="url" name="url" />
+
+    <label for="email">Email (opcional)</label>
+    <input id="email" name="email" />
+
+    <div class="actions">
+      <button type="submit" class="btn primary">Analisar Phishing</button>
+    </div>
+  </form>
+{% endblock %}

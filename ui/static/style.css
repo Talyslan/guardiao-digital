@@ -1,0 +1,68 @@
+
+:root{
+  --bg: #0f172a;
+  --panel: #0b1220;
+  --card: #0f172a;
+  --accent: #4f46e5;
+  --accent-2: #06b6d4;
+  --muted: #94a3b8;
+  --text: #e6eef8;
+  --danger: #ef4444;
+  --success: #10b981;
+  --glass: rgba(255,255,255,0.03);
+}
+
+*{box-sizing:border-box}
+body{font-family:Inter, system-ui, Arial, sans-serif;background:linear-gradient(180deg,#071029 0%, #07122a 60%);margin:0;color:var(--text);-webkit-font-smoothing:antialiased}
+.container{max-width:1100px;margin:28px auto;padding:0 18px}
+.nav{background:transparent;border-bottom:1px solid rgba(255,255,255,0.03)}
+.nav .nav-inner{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{font-weight:700;color:var(--accent);text-decoration:none;font-size:1.15rem}
+.search-form{display:flex;align-items:center;gap:6px;background:var(--glass);padding:6px;border-radius:10px}
+.search-form input{background:transparent;border:0;color:var(--muted);padding:6px 8px;min-width:160px}
+.search-form button{background:transparent;border:0;color:var(--muted);cursor:pointer}
+.nav-links{list-style:none;margin:0;padding:0;display:flex;gap:14px}
+.nav-links a{color:var(--muted);text-decoration:none;padding:6px 10px;border-radius:8px;display:inline-flex;align-items:center;gap:8px}
+.nav-links a:hover{background:var(--glass);color:var(--text)}
+.card{background:rgba(255,255,255,0.03);padding:18px;border-radius:12px;box-shadow:0 6px 20px rgba(2,6,23,0.6);margin:18px 0;border:1px solid rgba(255,255,255,0.02)}
+.form-card label{display:block;margin-top:8px;font-weight:600;color:var(--muted)}
+textarea,input{width:100%;padding:12px;border:1px solid rgba(255,255,255,0.04);border-radius:10px;margin-top:8px;background:transparent;color:var(--text)}
+.actions{margin-top:14px}
+.btn{display:inline-block;padding:10px 14px;border-radius:10px;background:transparent;color:var(--text);text-decoration:none;border:1px solid rgba(255,255,255,0.04)}
+.btn.primary{background:linear-gradient(90deg,var(--accent),var(--accent-2));border:none;color:white;box-shadow:0 6px 18px rgba(79,70,229,0.18)}
+.btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.04)}
+.flash-list{margin:12px 0}
+.flash{padding:10px;border-radius:8px;margin-bottom:8px}
+.flash.warning{background:#fff7ed;color:#92400e}
+.flash.danger{background:#fee2e2;color:var(--danger)}
+.history-list{list-style:none;padding:0;margin:0}
+.history-item{padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.02);margin-bottom:8px}
+.meta{color:var(--muted);font-size:13px}
+.json{background:#071226;color:var(--text);padding:12px;border-radius:8px;overflow:auto;border:1px solid rgba(255,255,255,0.02)}
+.status.safe{color:var(--success);font-weight:700}
+.status.high_risk{color:var(--danger);font-weight:700}
+.footer{padding:18px;color:var(--muted);text-align:center}
+
+/* Reputation badge styles */
+.reputation{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:999px;font-weight:600}
+.reputation .icon{opacity:0.95}
+.reputation.good{background:linear-gradient(90deg, rgba(16,185,129,0.12), rgba(16,185,129,0.06));color:var(--success);border:1px solid rgba(16,185,129,0.12)}
+.reputation.warn{background:linear-gradient(90deg, rgba(250,204,21,0.08), rgba(250,204,21,0.03));color:#f59e0b;border:1px solid rgba(245,158,11,0.08)}
+.reputation.bad{background:linear-gradient(90deg, rgba(239,68,68,0.08), rgba(239,68,68,0.03));color:var(--danger);border:1px solid rgba(239,68,68,0.08)}
+
+.tag{background:rgba(255,255,255,0.02);padding:6px 8px;border-radius:8px;font-size:13px;color:var(--muted)}
+
+.icon{display:inline-block;vertical-align:middle}
+.icon.icon-btn{opacity:0.9}
+
+.label-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,0.02);font-weight:600}
+
+/* loading */
+.spinner{width:36px;height:36px;border-radius:50%;border:4px solid rgba(255,255,255,0.06);border-top-color:var(--accent);animation:spin 1s linear infinite;display:inline-block}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+@media(max-width:720px){.nav .nav-inner{flex-direction:column;align-items:stretch}.search-form{width:100%}.container{padding:0 12px}}
+
+/* accessibility */
+.visually-hidden{position:absolute!important;height:1px;width:1px;overflow:hidden;clip:rect(1px,1px,1px,1px);white-space:nowrap}
+

@@ -1,0 +1,37 @@
+{% if entry %}
+  <div class="card" id="detail-card-{{ entry.id }}">
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <h3 style="margin:0">ID: {{ entry.id }}</h3>
+      <div class="label-badge">Status: <strong style="margin-left:8px">{{ entry.result.status }}</strong></div>
+    </div>
+    <hr style="border:none;border-top:1px solid rgba(255,255,255,0.03);margin:12px 0">
+    {% if entry.text %}
+      <p><strong>Texto:</strong></p>
+      <pre class="json">{{ entry.text }}</pre>
+    {% endif %}
+    {% if entry.url %}
+      <p><strong>URL:</strong> <a href="{{ entry.url }}" target="_blank" rel="noopener">{{ entry.url }}</a></p>
+    {% endif %}
+
+    {% set result = entry.result %}
+    {% set reasons = (result.reasons if result is mapping else (result.get('reasons') if result else None)) %}
+    {% if reasons %}
+      <h4>Razões</h4>
+      <ul>
+        {% for r in reasons %}
+          <li>{{ r }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+    {% set url_report = (result.url_report if result is mapping else (result.get('url_report') if result else None)) %}
+    {% if url_report %}
+      <h4>Relatório de URL</h4>
+      <pre class="json">{{ url_report | tojson(indent=2) }}</pre>
+    {% endif %}
+    <div class="actions" style="margin-top:12px">
+      <a class="btn ghost" hx-get="/history/list" hx-target="#history-list" hx-swap="innerHTML">Fechar</a>
+    </div>
+  </div>
+{% else %}
+  <div class="card">Análise não encontrada.</div>
+{% endif %}

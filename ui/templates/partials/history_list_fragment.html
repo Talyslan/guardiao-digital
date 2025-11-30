@@ -1,0 +1,17 @@
+{% for item in history %}
+  <li class="history-item">
+    <a href="/history/{{ item.id }}">{{ icons.icon('history',14) }} <strong>{{ item.result.status }}</strong> — <span class="muted">Score {{ item.result.score }}</span></a>
+    <div class="meta">{{ (item.text or '')[:120] }}{% if item.url %} — {{ item.url }}{% endif %}</div>
+    {% set reasons = (item.result.reasons if item.result is mapping else (item.result.get('reasons') if item.result else None)) %}
+    {% if reasons %}
+      <div class="muted" style="margin-top:6px">Motivo: {{ reasons[0] if reasons|length > 0 else reasons }}</div>
+    {% endif %}
+    {% set url_report = (item.result.url_report if item.result is mapping else (item.result.get('url_report') if item.result else None)) %}
+    {% if url_report %}
+      {% set summary = url_report.get('summary') if url_report.get('summary') else None %}
+      {% set rep_class = 'good' if url_report.get('score',0) < 0.4 else ('bad' if url_report.get('score',0) > 0.8 else 'warn') %}
+      <span class="reputation {{ rep_class }}" style="margin-top:6px">{{ icons.icon('check' if rep_class=='good' else 'alert',14) }} <span>{{ summary or 'ver detalhes' }}</span></span>
+      <a hx-get="/history/{{ item.id }}/fragment" hx-target="#history-detail-target" hx-swap="innerHTML" class="btn ghost" style="margin-left:8px">Ver detalhes</a>
+    {% endif %}
+  </li>
+{% endfor %}

@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Guardião Digital - UI</title>
+    <link rel="stylesheet" href="/static/style.css">
+  </head>
+  <body>
+    {% import 'components/icons.html' as icons %}
+    <nav class="nav">
+      <div class="container nav-inner">
+        <a href="/" class="brand">Guardião Digital</a>
+        <form class="search-form" role="search" action="/">
+          <label for="search" class="visually-hidden">Pesquisar</label>
+          <input id="search" placeholder="Pesquisar histórico..." />
+          <button type="submit" aria-label="Pesquisar">{{ icons.icon('search', 18, 'icon-btn') }}</button>
+        </form>
+        <ul class="nav-links">
+          <li><a href="/">{{ icons.icon('check',16) }} Analisar</a></li>
+          <li><a href="/phishing">{{ icons.icon('alert',16) }} Phishing</a></li>
+          <li><a href="/history">{{ icons.icon('history',16) }} Histórico</a></li>
+        </ul>
+      </div>
+    </nav>
+    <main class="container">
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          <div class="flash-list">
+            {% for category, msg in messages %}
+              <div class="flash {{ category }}">{{ msg }}</div>
+            {% endfor %}
+          </div>
+        {% endif %}
+      {% endwith %}
+
+      {% block content %}{% endblock %}
+    </main>
+    <footer class="footer container">&copy; Guardião Digital</footer>
+    <script src="/static/ui.js"></script>
+    <!-- htmx for progressive enhancement (partial updates without full reloads) -->
+    <script src="https://unpkg.com/htmx.org@1.9.3"></script>
+  </body>
+  </html>

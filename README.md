@@ -87,6 +87,12 @@ Swagger automático 🚀
 pytest -q
 ```
 
+## Rodar UI
+
+```bash
+py -m ui.app
+```
+
 ## 🧠 Como funciona a análise?
 
 O Guardião Digital usa três camadas principais:

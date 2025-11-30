@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Detalhes da Análise</h1>
+  <div class="card">
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <h3 style="margin:0">ID: {{ entry.id }}</h3>
+      <div class="label-badge">Status: <strong style="margin-left:8px">{{ entry.result.status }}</strong></div>
+    </div>
+    <hr style="border:none;border-top:1px solid rgba(255,255,255,0.03);margin:12px 0">
+    <p><strong>Texto:</strong></p>
+    <pre class="json">{{ entry.text }}</pre>
+    {% if entry.url %}
+      <p><strong>URL:</strong> {{ entry.url }}</p>
+    {% endif %}
+    <h3>Resultado</h3>
+    {% set result = entry.result %}
+    {% set reasons = (result.reasons if result is mapping else (result.get('reasons') if result else None)) %}
+    {% if reasons %}
+      <h4>Razões</h4>
+      <ul>
+        {% for r in reasons %}
+          <li>{{ r }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+    {% set url_report = (result.url_report if result is mapping else (result.get('url_report') if result else None)) %}
+    {% if url_report %}
+      <h4>Relatório de URL</h4>
+      <pre class="json">{{ url_report | tojson(indent=2) }}</pre>
+    {% endif %}
+    <h4>Raw</h4>
+    <pre class="json">{{ entry.result | tojson(indent=2) }}</pre>
+    <div class="actions">
+      <a class="btn ghost" href="/history">{{ icons.icon('history',14) }} Voltar</a>
+    </div>
+  </div>
+{% endblock %}
