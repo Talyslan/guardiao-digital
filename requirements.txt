@@ -8,3 +8,4 @@ scikit-learn
 joblib
 pytest
 python-dotenv
+httpx
