@@ -1,22 +1,34 @@
 from src.domain.interfaces.i_classifier import IClassifier
-import joblib
+from transformers import pipeline
 import os
-
-MODEL_PATH = os.path.join("models", "fake_model.pkl")
-VECT_PATH = os.path.join("models", "vectorizer.pkl")
 
 class MLClassifier(IClassifier):
     def __init__(self):
         try:
-            self.model = joblib.load(MODEL_PATH)
-            self.vectorizer = joblib.load(VECT_PATH)
+            self.classifier = pipeline(
+                "text-classification",
+                model="mrm8488/bert-tiny-finetuned-fake-news",
+                top_k=None
+            )
         except Exception:
-            self.model = None
-            self.vectorizer = None
+            self.classifier = None
 
     def classify(self, text: str) -> float:
-        if not self.model or not self.vectorizer:
-            # fallback neutro
+        if not self.classifier:
             return 0.0
-        X = self.vectorizer.transform([text])
-        return float(self.model.predict_proba(X)[0][1])
+
+        try:
+            result = self.classifier(text)[0]
+
+            label = result.get("label", "").lower()
+            score = float(result.get("score", 0.0))
+
+            if "fake" in label:
+                return score
+            elif "real" in label:
+                return 1 - score
+            else:
+                return 0.5
+
+        except Exception:
+            return 0.0
