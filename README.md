@@ -87,7 +87,7 @@ Swagger automático 🚀
 pytest -q
 ```
 
-## Rodar UI
+## 💻 Rodar UI
 
 ```bash
 py -m ui.app
